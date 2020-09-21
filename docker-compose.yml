@@ -1,0 +1,29 @@
+version: "3.6"
+services:
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+
+  postgres:
+    container_name: postgres
+    build: ./postgres
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
+
+  woofer-api:
+    container_name: backend
+    build: ./
+    volumes:
+      - ./:/usr/src/woofer-api
+    command: npm run dev
+    working_dir: /usr/src/woofer-api
+    ports:
+      - "${PORT}:${PORT}"
+volumes:
+  ./:
