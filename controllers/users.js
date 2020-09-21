@@ -65,7 +65,7 @@ exports.updateImage = async (req, res) => {
         s3.upload(
           {
             Bucket: process.env.S3_BUCKET_NAME,
-            Key: image.originalname,
+            Key: `${req.user.id}/${image.originalname}`,
             Body: image.buffer,
           },
           (err, data) => {
@@ -92,6 +92,7 @@ exports.updateImage = async (req, res) => {
       msg: "image uploaded successfully",
     });
   } catch (err) {
+    console.log(err);
     console.error("err.message", err.message);
     res.status(500).json({ msg: "Server Error" });
   }
