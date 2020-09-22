@@ -24,3 +24,7 @@ script:
   - nohup npm run start &
   - sleep 5
   - npm run test
+# deploy:
+#   provider: heroku
+#   api_key: ...
+#   app: woofer-api
