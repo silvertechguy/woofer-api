@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "14"
+services:
+  - redis-server
+  - postgresql
+install:
+  - npm install
+cache:
+  directories:
+    - node_modules
+before_script:
+  - psql --command="CREATE USER silver;"
+  - psql --command="CREATE DATABASE woofer WITH OWNER = silver;"
+  - psql --dbname=woofer --file=postgres/utils/extensions.sql
+  - psql --dbname=woofer --file=postgres/tables/notifications.sql
+  - psql --dbname=woofer --file=postgres/tables/comments.sql
+  - psql --dbname=woofer --file=postgres/tables/likes.sql
+  - psql --dbname=woofer --file=postgres/tables/woofs.sql
+  - psql --dbname=woofer --file=postgres/tables/users.sql
+  - psql --dbname=woofer --file=postgres/management/relations.sql
+  - psql --dbname=woofer --file=postgres/triggers/notifications.sql
+script:
+  - nohup npm run start &
+  - sleep 5
+  - npm run test
