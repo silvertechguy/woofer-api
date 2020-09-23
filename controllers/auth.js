@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const axios = require("axios");
 const db = require("../config/db");
 const jwt = require("jsonwebtoken");
 const redisClient = require("../config/redis");
@@ -48,9 +49,18 @@ exports.register = async (req, res) => {
     );
     redisClient.expire(newUser.rows[0].id, Number(process.env.JWT_EXPIRE));
 
-    return res.status(201).json({ token });
+    res.status(201).json({ token });
+
+    if (process.env.SMS_SERVERLESS_LAMBDA_URL) {
+      axios
+        .post(process.env.SMS_SERVERLESS_LAMBDA_URL, {
+          message: `${newUser.rows[0].username} - ${newUser.rows[0].email} Registered to your app Woofer`,
+        })
+        .then((res) => console.dir(res.data))
+        .catch(console.log);
+    }
   } catch (err) {
-    // console.error(err);
+    // console.error("/api/auth/register", err);
     res.status(500).json({ msg: "Something went wrong, please try again" });
   }
 };
