@@ -8,7 +8,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const compression = require("compression");
 
-dotenv.config();
+dotenv.config({ allowEmptyValues: true });
 
 const app = express();
 

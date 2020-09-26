@@ -1,11 +1,10 @@
 version: "3.6"
 services:
   redis:
-    container_name: redis:6.0.8-alpine
-    image: redis
+    container_name: redis
+    image: redis:6.0.8-alpine
     ports:
       - "6379:6379"
-
   postgres:
     container_name: postgres
     build: ./postgres
