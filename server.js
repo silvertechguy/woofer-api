@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+const dotenv = require("dotenv-safe");
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
