@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   redis:
-    container_name: redis
+    container_name: redis:6.0.8-alpine
     image: redis
     ports:
       - "6379:6379"
@@ -18,12 +18,12 @@ services:
 
   woofer-api:
     container_name: backend
-    build: ./
+    build: .
     volumes:
-      - ./:/usr/src/woofer-api
+      - ./:/srv/woofer-api
+      - woofer-api_node_modules:/srv/woofer-api/node_modules
     command: npm run dev
-    working_dir: /usr/src/woofer-api
     ports:
       - "${PORT}:${PORT}"
 volumes:
-  ./:
+  woofer-api_node_modules:

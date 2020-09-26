@@ -1,4 +1,4 @@
-FROM postgres:12.3
+FROM postgres:13.0-alpine
 
 ADD /utils/ /docker-entrypoint-initdb.d/utils/
 ADD /tables/ /docker-entrypoint-initdb.d/tables/
