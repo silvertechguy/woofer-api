@@ -1,4 +1,7 @@
-require("dotenv-safe").config({ allowEmptyValues: true });
+require("dotenv-safe").config({
+  allowEmptyValues: true,
+  example: process.env.NODE_ENV === "production" && ".env",
+});
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
