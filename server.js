@@ -1,4 +1,4 @@
-const dotenv = require("dotenv-safe");
+dotenv.config({ allowEmptyValues: true });
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
@@ -7,8 +7,6 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const compression = require("compression");
-
-dotenv.config();
 
 const app = express();
 
