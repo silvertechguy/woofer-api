@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({ allowEmptyValues: true });
+  require("dotenv-safe").config({ allowEmptyValues: true });
 }
 const express = require("express");
 const morgan = require("morgan");
