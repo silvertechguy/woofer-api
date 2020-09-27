@@ -1,7 +1,6 @@
 # Woofer API (Backend)
 
-Woofer is a twitter-like application allows you to post woofs(tweets), see user profiles, and do the basic CRUD operations.
-
+Woofer is a twitter-like application allows you to post woofs (tweets),see woof details like comments likes, get notifications, see user profiles, edit profile, like and unlike, comment, and do the basic CRUD operations.
 Check out the deployed site [API - Backend](https://woofer-api.herokuapp.com/)
 
 If you are looking for the frontend repo, [click here](https://github.com/silvertechguy/woofer)
