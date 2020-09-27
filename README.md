@@ -30,7 +30,7 @@ Check out the deployed site [Frontend](https://woofer-official.herokuapp.com/)
 ## Watch this video on how to setup locally (up and running) using Docker
 
 Click the YouTube link [here]() or the image down below
-[![New Tweet](screenshots/notifications.png)]( "Woofer API Backend Setup")
+[![New Woof](screenshots/notifications.png)]( "Woofer API Backend Setup")
 
 ## Or you can read how to setup locally (up and running) using Docker
 
@@ -68,6 +68,14 @@ Run `docker-compose run --rm woofer-api bash`
 
 To access redis:
 Run `docker-compose run redis redis-cli`
+
+### Frontend setup (React.JS)
+
+1. Clone the frontend repo [here](https://github.com/silvertechguy/woofer)
+2. Run `npm install`
+3. Remove this line ` export default "export default "https://woofer-api.herokuapp.com/api";` from `src/api/baseUrl.js`
+4. Add this line instead ` export default "http://localhost:5000/api";` to `src/api/baseUrl.js`
+5. Run `npm start`
 
 ## UI
 
