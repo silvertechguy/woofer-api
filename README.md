@@ -69,11 +69,11 @@ You can grab AWS_ACCESS_KEY_ID | AWS_SECRET_ACCESS_KEY | S3_BUCKET_NAME here [Am
 
 ### Edit Profile
 
-![Edit Profile](screenshots/edit_profile.png)
+![Edit Profile](screenshots/edit-profile.png)
 
 ### Woof details
 
-![Woof](screenshots/woof.png)
+![Woof](screenshots/view_profile.png)
 
 ### New Woof
 
