@@ -34,15 +34,10 @@ Click the YouTube link [here]() or the image down below
 
 ## Or you can read how to setup locally (up and running) using Docker
 
-- You need to install docker and docker compose
-
-1.  [Instructions here for docker installation](https://docs.docker.com/get-docker)
-2.  [Instructions here for docker-compose installation](https://docs.docker.com/compose/install)
-
 ### Environmental variables setup
 
 1. Create a .env file at the root directory
-2. Copy whatever in the .env.example file in the project and paste it in the .env file you created
+2. Copy whatever in the .env.example file in the project and paste it in the .env file you created (adjust anything if needed)
 3. In order for image upload feature to work you have to fill in these values (you can leave it if you don't care about image uploading)
 
 ```javascript
@@ -52,6 +47,27 @@ S3_BUCKET_NAME=<S3_BUCKET_NAME>
 ```
 
 You can grab AWS_ACCESS_KEY_ID | AWS_SECRET_ACCESS_KEY | S3_BUCKET_NAME here [Amazon S3](https://aws.amazon.com/s3)
+
+### setup
+
+**Make sure you have docker installed and running on your computer**
+
+- Run the commands in the terminal
+
+```bash
+docker-compose up --build
+
+# We add `--build` parameter because this is the first setup phase
+```
+
+**Important:** if you are getting conflict erros, you should run `docker stop <container name>` that is already running in the background.
+**Important:** if you are getting other erros, you should run `docker-compose down` to bring everything down, and start over.
+
+To access backend's bash:
+Run `docker-compose run --rm woofer-api bash`
+
+To access redis:
+Run `docker-compose run redis redis-cli`
 
 ## UI
 
