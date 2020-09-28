@@ -1,10 +1,13 @@
 # Woofer API (Backend)
 
 Woofer is a twitter-like application that allows you to post woofs (tweets), see woof details like comments likes, get notifications, see user profiles, edit profile, like and unlike, comment, and do the basic CRUD operations.
+
 - Check out the deployed site [API - Backend](https://woofer-api.herokuapp.com/)
 
 - If you are looking for the frontend repo, [click here](https://github.com/silvertechguy/woofer)
+
 - Check out the deployed site [Frontend](https://woofer-official.herokuapp.com/)
+
 - API Endpoints: [here](https://github.com/silvertechguy/woofer-api/blob/master/api-spec.md)
 
 ## Core Packages
@@ -29,8 +32,8 @@ Woofer is a twitter-like application that allows you to post woofs (tweets), see
 
 ## Watch this video on how to setup locally (up and running) using Docker
 
-Click the YouTube link [here]() or the image down below
-[![New Woof](screenshots/notifications.png)]( "Woofer API Backend Setup")
+Click the YouTube link [here](https://www.youtube.com/watch?v=67pjjO0BddY) or the image down below
+[![New Woof](screenshots/notifications.png)](https://www.youtube.com/watch?v=67pjjO0BddY "Woofer API Backend Setup")
 
 ## Or you can read how to setup locally (up and running) using Docker
 
@@ -67,7 +70,7 @@ To access backend's bash:
 Run `docker-compose run --rm woofer-api bash`
 
 To access redis:
-Run `docker-compose run redis redis-cli`
+Run `docker-compose exec redis redis-cli`
 
 ### Frontend setup (React.JS)
 
