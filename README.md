@@ -105,3 +105,14 @@ Run `docker-compose exec redis redis-cli`
 ### New Woof
 
 ![New Woof](screenshots/new_woof.png)
+
+
+
+👨‍💻 My projects are available at https://silvertechguy.netlify.app
+
+📫 Reach me at my email silvertechguy@gmail.com
+
+twitter https://twitter.com/silvertechyguy
+LinkedIn https://linkedin.com/in/silvertechguy
+
+
