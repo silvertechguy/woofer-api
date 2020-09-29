@@ -33,21 +33,18 @@ exports.register = async (req, res) => {
     );
 
     const token = jwt.sign({ id: newUser.rows[0].id }, process.env.JWT_SECRET, {
-      expiresIn: Number(process.env.JWT_EXPIRE),
+      expiresIn: parseInt(process.env.JWT_EXPIRE),
     });
 
-    redisClient.hmset(
-      newUser.rows[0].id,
-      "token",
+    const userCredentails = JSON.stringify({
+      id: newUser.rows[0].id,
       token,
-      "id",
-      newUser.rows[0].id,
-      "username",
-      newUser.rows[0].username,
-      "email",
-      newUser.rows[0].email
-    );
-    redisClient.expire(newUser.rows[0].id, Number(process.env.JWT_EXPIRE));
+      username: newUser.rows[0].username,
+      email: newUser.rows[0].email,
+    });
+
+    redisClient.set(token, userCredentails);
+    redisClient.expire(token, parseInt(process.env.JWT_EXPIRE));
 
     res.status(201).json({ token });
 
@@ -86,21 +83,18 @@ exports.login = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, {
-      expiresIn: Number(process.env.JWT_EXPIRE),
+      expiresIn: parseInt(process.env.JWT_EXPIRE),
     });
 
-    redisClient.hmset(
-      user.rows[0].id,
-      "token",
+    const userCredentails = JSON.stringify({
+      id: user.rows[0].id,
       token,
-      "id",
-      user.rows[0].id,
-      "username",
-      user.rows[0].username,
-      "email",
-      user.rows[0].email
-    );
-    redisClient.expire(user.rows[0].id, Number(process.env.JWT_EXPIRE));
+      username: user.rows[0].username,
+      email: user.rows[0].email,
+    });
+
+    redisClient.set(token, userCredentails);
+    redisClient.expire(token, parseInt(process.env.JWT_EXPIRE));
 
     return res.status(200).json({ token });
   } catch (err) {
@@ -153,7 +147,7 @@ exports.getLoggedInUser = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    redisClient.del(req.user.id);
+    redisClient.del(req.user.token);
     res.status(200).json({ msg: "LogOut Successfully" });
   } catch (err) {
     // console.error(err);
