@@ -19,55 +19,77 @@ const protect = async (req, res, next) => {
       });
     }
 
-    const verifyToken = () => {
-      return new Promise((resolve, reject) => {
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-          if (err && err.name == "TokenExpiredError") {
-            return reject(err);
-          }
+    // const verifyToken = () => {
+    //   return new Promise((resolve, reject) => {
+    //     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    //       if (err && err.name == "TokenExpiredError") {
+    //         return reject(err);
+    //       }
 
-          return resolve(decoded.id);
-        });
-      });
-    };
+    //       return resolve(decoded.id);
+    //     });
+    //   });
+    // };
 
-    const userId = await verifyToken();
+    // const userId = await verifyToken();
+
+    // const getUserByTokenFromRedis = () => {
+    //   return new Promise((resolve, reject) => {
+    //     redisClient.hgetall(userId, (err, value) => {
+    //       if (value === null) {
+    //         // console.log("value of (redisClient.hgetall(userId))", value);
+    //         return res.status(401).json({
+    //           msg:
+    //             "Not authorized to access this route (There is no value or key(id) in Redis)",
+    //         });
+    //       }
+
+    //       if (err) {
+    //         // console.error("redisClient.hgetall", err);
+    //         return reject(err);
+    //       }
+
+    //       if (token == value.token) {
+    //         return resolve(value);
+    //       } else {
+    //         res
+    //           .status(401)
+    //           .json({ msg: "Not authorized to access this route" });
+    //       }
+    //     });
+    //   });
+    // };
+
+    // const user = await getUserByTokenFromRedis();
+
+    // const userQueryResult = await db.query(
+    //   "SELECT user_id AS id, user_username AS username, user_email AS email FROM users WHERE user_username = $1",
+    //   [user.username]
+    // );
 
     const getUserByTokenFromRedis = () => {
       return new Promise((resolve, reject) => {
-        redisClient.hgetall(userId, (err, value) => {
-          if (value === null) {
-            // console.log("value of (redisClient.hgetall(userId))", value);
-            return res.status(401).json({
-              msg:
-                "Not authorized to access this route (There is no value or key(id) in Redis)",
-            });
-          }
-
+        redisClient.get(token, (err, value) => {
           if (err) {
-            // console.error("redisClient.hgetall", err);
+            console.error("redisClient.get", err);
             return reject(err);
           }
 
-          if (token == value.token) {
-            return resolve(value);
-          } else {
-            res
-              .status(401)
-              .json({ msg: "Not authorized to access this route" });
+          if (value === null) {
+            console.log("There is no value or key(id) in Redis", value);
+            return res.status(401).json({
+              msg: "Not authorized to access this route",
+            });
           }
+
+          return resolve(value);
         });
       });
     };
 
     const user = await getUserByTokenFromRedis();
 
-    const userQueryResult = await db.query(
-      "SELECT user_id AS id, user_username AS username, user_email AS email FROM users WHERE user_username = $1",
-      [user.username]
-    );
-
-    req.user = userQueryResult.rows[0];
+    req.user = JSON.parse(user);
 
     next();
   } catch (err) {
